@@ -26,7 +26,7 @@ export default class MainSignIn extends Component {
               <img src={instructorimg} width="500" />
               <h3>
                 {" "}
-                <Link to="/instructorsignin"> Instructor </Link>
+                <Link to="/instructorsignin"> Tutor </Link>
               </h3>
             </div>
 

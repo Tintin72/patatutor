@@ -7,35 +7,16 @@ import Moment from "react-moment";
 const Assignment = (props) => (
   <tr>
     <td> {props.assignments.name} </td>
-    <td> {props.assignments.status} </td>
-    <td> {props.assignments.dueDate} </td>
-    <td>
-      {" "}
-      <Moment diff="2019-06-23" unit="days">
-        {props.assignments.dueDate}
-      </Moment>{" "}
-      days left{" "}
-    </td>{" "}
-    <td> {props.assignments.file} </td>{" "}
-    <td>
-      <Link
-        to={"/assignmentupload/" + props.assignments._id}
-        className="btn btn-danger"
-        style={{ fontSize: "15px", width: "100px" }}
-      >
-        <span> Upload</span>
-      </Link>
-    </td>{" "}
   </tr>
 );
-class LinkAssignment extends Component {
+class AllAssignment extends Component {
   constructor(props) {
     super(props);
     this.state = { assignments: [] };
   }
   componentDidMount() {
     axios
-      .get("http://localhost:4000/api/assignments/all")
+      .get("http://localhost:4000/api/return-assignments/all")
       .then((response) => {
         this.setState({ assignments: response.data });
       })
@@ -45,7 +26,7 @@ class LinkAssignment extends Component {
   }
   componentDidUpdate() {
     axios
-      .get("http://localhost:4000/api/assignments/all")
+      .get("http://localhost:4000/api/return-assignments/all")
       .then((response) => {
         this.setState({ assignments: response.data });
       })
@@ -67,9 +48,6 @@ class LinkAssignment extends Component {
           <thead>
             <tr>
               <th> Assignment Name </th>
-              <th> Status </th>
-              <th> Due date </th>
-              <th> Days left </th>
             </tr>{" "}
           </thead>{" "}
           <tbody> {this.assignmentList()} </tbody>{" "}
@@ -78,4 +56,4 @@ class LinkAssignment extends Component {
     );
   }
 }
-export default LinkAssignment;
+export default AllAssignment;

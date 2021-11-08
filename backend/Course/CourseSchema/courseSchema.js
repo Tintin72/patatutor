@@ -3,32 +3,35 @@ const Schema = mongoose.Schema;
 
 let schemaCourse = new Schema({
   courseName: {
-    type: String
+    type: String,
   },
   description: {
-    type: String
+    type: String,
   },
   instructorName: [
     {
       type: String,
-      ref: "instructor"
-    }
+      ref: "instructor",
+    },
   ],
   startDate: {
-    type: Date
+    type: Date,
   },
   duration: {
-    type: String
+    type: String,
+  },
+  fee: {
+    type: String,
   },
   instructorEmail: [
     {
       type: String,
-      ref: "instructor"
-    }
+      ref: "instructor",
+    },
   ],
   mobileno: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("course", schemaCourse);

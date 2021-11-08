@@ -8,6 +8,7 @@ const router = require("./Admin/AdminRoutes/adminRoutes");
 const studentRoutes = require("./studentRoutes");
 const instructor = require("./InstructorRoute/instructor");
 const assignment = require("./AssignmentRoute/assignment");
+const returnassignments = require("./AssignmentRoute/returnAssignment");
 const SMS = require("../backend/Course/SMSSender/SMSSender");
 const instLogrouter = require("./login/instLogRoute");
 //const courseRoutes = express.Router();
@@ -17,13 +18,14 @@ const PORT = 4000;
 
 mongoose
   .connect(
+    // "mongodb+srv://martin72:32996372@cluster0.egnxa.mongodb.net/PataTutor?retryWrites=true&w=majority"
     "mongodb+srv://Fasrin:0767739896@mydb-pazde.mongodb.net/AF_WD_19?retryWrites=true&w=majority",
     { useNewUrlParser: true }
   )
   .then(() => {
     console.log("MongoDB database connection established successfully");
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err.message);
   });
 
@@ -49,10 +51,11 @@ app.use("/api/student", studentRoutes);
 //Instructor
 app.use("/api/instructor", instructor);
 app.use("/api/assignments", assignment);
+app.use("/api/return-assignments", returnassignments);
 
 //Middlewre instructor login
 app.use("/api", instLogrouter);
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("Server is running on port : " + PORT);
 });

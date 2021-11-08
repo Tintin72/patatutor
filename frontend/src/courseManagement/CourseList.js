@@ -12,10 +12,10 @@ class CourseList extends Component {
   componentDidMount() {
     axios
       .get("http://localhost:4000/api/course/")
-      .then(response => {
+      .then((response) => {
         this.setState({ courses: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
@@ -23,16 +23,16 @@ class CourseList extends Component {
   componentDidUpdate() {
     axios
       .get("http://localhost:4000/api/course/")
-      .then(response => {
+      .then((response) => {
         this.setState({ courses: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
 
   courseList() {
-    return this.state.courses.map(function(currentCourse) {
+    return this.state.courses.map(function (currentCourse) {
       return (
         // <div className="row">
         // <div className="col-md-4">
@@ -53,13 +53,17 @@ class CourseList extends Component {
             {" "}
             <b> Starting Date : </b> {currentCourse.startDate}
           </div>
+          <div className="card-body">
+            {" "}
+            <b> Fee : </b> {currentCourse.fee}
+          </div>
           <div className="card-footer">
             <Link
               to={"/viewcourse/"}
               className=" btn btn-info"
               style={{
                 fontSize: "15px",
-                width: "500px"
+                width: "500px",
               }}
             >
               <span> View More </span>
@@ -70,7 +74,7 @@ class CourseList extends Component {
               className=" btn btn-success"
               style={{
                 fontSize: "15px",
-                width: "500px"
+                width: "500px",
               }}
             >
               <span> Entroll Course </span>
@@ -89,7 +93,7 @@ class CourseList extends Component {
           style={{
             marginLeft: "30px",
             marginRight: "20px",
-            marginBottom: "20px"
+            marginBottom: "20px",
           }}
         >
           <div className="col-md- ">{this.courseList()} </div>

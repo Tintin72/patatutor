@@ -11,6 +11,7 @@ class CourseAdd extends Component {
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeStartDate = this.onChangeStartDate.bind(this);
     this.onChangeDuration = this.onChangeDuration.bind(this);
+    this.onChangeFee = this.onChangeFee.bind(this);
     this.onChangeInstructor = this.onChangeInstructor.bind(this);
     this.onChangeInstructorEmail = this.onChangeInstructorEmail.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -20,21 +21,22 @@ class CourseAdd extends Component {
       description: "",
       startDate: "",
       duration: "",
+      fee: "",
       instructors: [],
       instructorsList: [],
       errors: {},
       instructoremail: [],
-      mobile: ""
+      mobile: "",
     };
   }
 
   componentDidMount() {
     axios
       .get("http://localhost:4000/api/instructor/all")
-      .then(response => {
+      .then((response) => {
         this.setState({ instructorsList: response.data });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
   }
@@ -42,35 +44,40 @@ class CourseAdd extends Component {
   //Setting State
   onChangeCourseName(e) {
     this.setState({
-      courseName: e.target.value
+      courseName: e.target.value,
     });
   }
   onChangeDescription(e) {
     this.setState({
-      description: e.target.value
+      description: e.target.value,
     });
   }
   onChangeStartDate(e) {
     this.setState({
-      startDate: e.target.value
+      startDate: e.target.value,
     });
   }
   onChangeDuration(e) {
     this.setState({
-      duration: e.target.value
+      duration: e.target.value,
     });
   }
   onChangeInstructor(e) {
     this.setState({
-      instructors: e.target.value
+      instructors: e.target.value,
+    });
+  }
+  onChangeFee(e) {
+    this.setState({
+      fee: e.target.value,
     });
   }
   onChangeInstructorEmail(e) {
     this.setState({
-      instructoremail: e.target.value
+      instructoremail: e.target.value,
     });
   }
-  handleMobileChange = e => {
+  handleMobileChange = (e) => {
     let value = e.target.value;
     if (value !== "") {
       this.setState({ mobile: e.target.value });
@@ -87,8 +94,9 @@ class CourseAdd extends Component {
       description,
       startDate,
       duration,
+      fee,
       instructors,
-      instructoremail
+      instructoremail,
     } = this.state;
 
     //Check for errors
@@ -112,9 +120,13 @@ class CourseAdd extends Component {
       this.setState({ errors: { instructors: "Instrutor is required" } });
       return;
     }
+    if (fee === "") {
+      this.setState({ errors: { fee: "Fee is required" } });
+      return;
+    }
     if (instructoremail === "") {
       this.setState({
-        errors: { instructoremail: "Instrutor Email is required" }
+        errors: { instructoremail: "Instrutor Email is required" },
       });
       return;
     }
@@ -133,11 +145,12 @@ class CourseAdd extends Component {
       description: this.state.description,
       startDate: this.state.startDate,
       duration: this.state.duration,
+      fee: this.state.fee,
       instructorName: this.state.instructors,
-      instructorEmail: this.state.instructoremail
+      instructorEmail: this.state.instructoremail,
     };
 
-    axios.post("http://localhost:4000/api/course/add", newUser).then(res => {
+    axios.post("http://localhost:4000/api/course/add", newUser).then((res) => {
       console.log(res.data);
       this.props.history.push(`/viewcourse`);
     });
@@ -145,11 +158,11 @@ class CourseAdd extends Component {
     let mob = this.state.mobile;
     axios.post("http://localhost:4000/api/course/sendsms", {
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
       body: JSON.stringify({
-        to: mob
-      })
+        to: mob,
+      }),
     });
     // .then(response => {
     //   console.log("SMS : " + response);
@@ -165,8 +178,9 @@ class CourseAdd extends Component {
       description: "",
       startDate: "",
       duration: "",
+      fee: "",
       instructors: "",
-      instructoremail: ""
+      instructoremail: "",
     });
   }
 
@@ -177,7 +191,7 @@ class CourseAdd extends Component {
       <div style={{ marginTop: 10 }}>
         <h3
           style={{
-            color: "black"
+            color: "black",
           }}
         >
           {" "}
@@ -225,7 +239,7 @@ class CourseAdd extends Component {
                     required
                   >
                     <option value="">------</option>
-                    {this.state.instructorsList.map(instructors => {
+                    {this.state.instructorsList.map((instructors) => {
                       return (
                         <option value={instructors.name} key={instructors._id}>
                           {instructors.name}
@@ -243,7 +257,7 @@ class CourseAdd extends Component {
                     required
                   >
                     <option value="">------</option>
-                    {this.state.instructorsList.map(instructorEmail => {
+                    {this.state.instructorsList.map((instructorEmail) => {
                       return (
                         <option
                           value={instructorEmail.mail}
@@ -262,12 +276,12 @@ class CourseAdd extends Component {
                     onChange={this.onChangeDuration}
                     error={errors.duration}
                   />
-                  {/* <TextInputGroup
-                    label="Instructor Mobile Number"
-                    name="mobile"
-                    placeholder=" Enter Mobile Number"
-                    onChange={this.handleMobileChange}
-                  /> */}
+                  <TextInputGroup
+                    label="Fee for the course"
+                    name="fee"
+                    placeholder="Enter the amount for the course. Enter Free if not payed"
+                    onChange={this.onChangeFee}
+                  />
 
                   <div>
                     <button

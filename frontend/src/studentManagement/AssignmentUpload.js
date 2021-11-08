@@ -5,7 +5,6 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Progress } from "reactstrap";
 
-
 class AssignmentUpload extends Component {
   constructor(props) {
     super(props);
@@ -14,29 +13,27 @@ class AssignmentUpload extends Component {
     this.onChangeName = this.onChangeName.bind(this);
 
     this.state = {
-      selectedFile: null
+      selectedFile: null,
     };
 
     this.state = {
       name: "",
-      
     };
   }
 
   onChangeName(e) {
     this.setState({
-      name: e.target.value
+      name: e.target.value,
     });
   }
-  onChangeHandler = event => {
+  onChangeHandler = (event) => {
     console.log(event.target.files[0]);
   };
 
-  onChangeHandler = event => {
+  onChangeHandler = (event) => {
     this.setState({
       selectedFile: event.target.files[0],
       loaded: 0,
-     
     });
   };
 
@@ -48,44 +45,59 @@ class AssignmentUpload extends Component {
   onClickHandler = () => {
     const data = new FormData();
     data.append("file", this.state.selectedFile);
+    data.append("name", this.state.name);
     axios
-      .post("http://localhost:4000/api/assignment", data, {
-        // receive two    parameter endpoint url ,form data
-      })
-      .then(res => {
+      .post(
+        "http://localhost:4000/api/return-assignments/add-student-assignment",
+        data,
+        {
+          // receive two    parameter endpoint url ,form data
+        }
+      )
+      .then((res) => {
         // then print response status
+
         alert("upload success");
       })
-      .catch(err => {
+      .catch((err) => {
         // then print response status
         alert("upload fail");
       });
+    this.setState({
+      selectedFile: null,
+    });
   };
 
   componentDidMount() {
     axios
-      .get("http://localhost:4000/api/assignments/all" + this.props.match.params.id)
-      .then(response => {
+      .get(
+        "http://localhost:4000/api/assignments/all" + this.props.match.params.id
+      )
+      .then((response) => {
         this.setState({
           name: response.data.name,
-      
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
-   }
-  
+  }
+
   render() {
     return (
       <div class="container">
         <div class="row">
           <div class="offset-md-3 col-md-6">
             <div class="form-group files">
-
-           
-
-              <label > Upload your file for assignment  </label>
+              <label> Title of your assignment </label>
+              <input
+                type="text"
+                class="form-control"
+                onChange={this.onChangeName}
+              />
+            </div>
+            <div class="form-group files">
+              <label> Upload your file for assignment </label>
               <input
                 type="file"
                 class="form-control"

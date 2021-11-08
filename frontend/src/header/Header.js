@@ -34,7 +34,7 @@ export default class Header extends Component {
                   <Link to="/signup"> Sign Up </Link>{" "}
                 </li>{" "}
                 <li>
-                  <a href="/instructor">Instructor</a>
+                  <a href="/instructor">Tutor</a>
                 </li>
                 <li>
                   <Link to="/instructorDashboard">Instructor Dashboard</Link>

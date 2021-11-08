@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import AssignmentLink from "./LinkAssignment";
 import CourseList from "../courseManagement/CourseList";
 import ViewCourse from "../courseManagement/ViewCourse";
+import AllAssignments from "./AllAssignments";
 
 class StudentDashboard extends Component {
   render() {
@@ -32,12 +33,17 @@ class StudentDashboard extends Component {
           <div>
             <Link to={"/assignmentlink"}> View Assignments </Link>{" "}
             <Link to={"/courselist"}> View Courses </Link>{" "}
+            <Link to={"/submittedassignments"}>
+              {" "}
+              View Submitted Assignments{" "}
+            </Link>{" "}
           </div>
 
           <Route path="/assignmentupload" component={AssignmentUpload} />
           <Route path="/assignmentlink" component={AssignmentLink} />
           <Route path="/courselist" component={CourseList} />
           <Route path="/viewcourse" component={ViewCourse} />
+          <Route path="/submittedassignments" component={AllAssignments} />
         </Router>
       </div>
     );

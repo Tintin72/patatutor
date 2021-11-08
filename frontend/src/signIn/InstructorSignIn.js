@@ -67,12 +67,12 @@ class InstructorSignIn extends Component {
   render() {
     return (
       <div>
-        <h2 align="center">Instructor LOGIN</h2> <br />
+        <h2 align="center">Tutor LOGIN</h2> <br />
         <div>
           <form onSubmit={this.onSubmit}>
             <div className="form-group col-7">
               <label htmlFor="exampleInputEmail1">
-                <b>Instructor ID</b>
+                <b>Tutor ID</b>
               </label>
               <input
                 type="text"
@@ -81,7 +81,7 @@ class InstructorSignIn extends Component {
                 aria-describedby="emailHelp"
                 value={this.state.adminID}
                 onChange={this.onChangeID}
-                placeholder="Instructor ID"
+                placeholder="Tutor ID"
               />
             </div>
             <div className="form-group col-7">

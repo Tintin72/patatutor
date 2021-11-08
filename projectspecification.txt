@@ -1,0 +1,5 @@
+language=javascript
+framework=Node.js & React.js
+packages=MongoDb, Auth0
+Database Tables = Users, Courses, Assignments
+Relationships
